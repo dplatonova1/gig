@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, MouseEvent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import countries from "countries-list";
 import { Input } from "../input/input.component";
@@ -14,11 +14,12 @@ export interface FormValues {
 
 export interface FormProps {
   editMode: boolean;
-  //   onSubmit: () => void;
+  onSubmit: SubmitHandler<FormValues>;
+  onDelete: (data: FormValues) => void;
 }
 
 export const FormComponent = (props: FormProps) => {
-  const { editMode } = props;
+  const { onSubmit, editMode, onDelete } = props;
   const {
     register,
     handleSubmit,
@@ -31,13 +32,17 @@ export const FormComponent = (props: FormProps) => {
       country: "Russia",
     },
   });
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+
   const validationPattern =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const countryList = useMemo(() => {
     return Object.values(countries.countries).map((country) => country.name);
   }, []);
+
+  const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
+    // onDelete(e.target);
+  };
 
   return (
     <form
@@ -83,24 +88,26 @@ export const FormComponent = (props: FormProps) => {
             className="border-solid border-2 border-sky-100 rounded-lg px-2 py-1"
             {...register("country", { required: true })}
           >
-            {countryList.map((country: string) => {
-              return <option>{country}</option>;
+            {countryList.map((country: string, index: number) => {
+              return <option key={index}>{country}</option>;
             })}
           </select>
         </div>
       </div>
       <div className="flex w-full justify-between">
-        <input
+        <button
           type="submit"
-          value={"Submit"}
           className="bg-sky-500 hover:bg-sky-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
-        />
+        >
+          Submit
+        </button>
         {editMode && (
-          <input
-            type="button"
-            value={"Delete"}
+          <button
+            onClick={handleDelete}
             className="bg-red-500 hover:bg-red-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
-          />
+          >
+            Delete
+          </button>
         )}
       </div>
     </form>
