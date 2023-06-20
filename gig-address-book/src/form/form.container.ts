@@ -1,18 +1,42 @@
-import React, { createElement, useState, useMemo } from "react";
+import React, { createElement, useState, useMemo, useCallback } from "react";
 import { FormComponent, FormValues } from "./form.component";
 import { SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import {
+  addContact,
+  deleteContact,
+  editContact,
+  setOpenForm,
+} from "../contacts/contactSlice";
+import { v4 as uuidv4 } from "uuid";
 
-export const FormContainer = () => {
-  const [contacts, setContacts] = useState<FormValues[]>([]);
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const listOfContacts = contacts.concat(data);
-    setContacts(listOfContacts);
-  };
+interface FormContainerProps {
+  editMode: boolean;
+}
+
+export const FormContainer = (props: FormContainerProps) => {
+  const { editMode } = props;
+  const dispatch = useDispatch();
+
+  const onSubmit: SubmitHandler<FormValues> = useCallback((data) => {
+    dispatch(addContact({ ...data, id: uuidv4() }));
+    dispatch(setOpenForm(false));
+  }, []);
 
   const onDelete = (data: FormValues) => {
-    console.log(data);
-    // const listOfContacts = contacts.find({data});
-    // setContacts(listOfContacts);
+    dispatch(deleteContact(data));
+    dispatch(setOpenForm(false));
   };
-  return createElement(FormComponent, { onSubmit, onDelete, editMode: true });
+
+  const onEdit = (data: FormValues) => {
+    dispatch(editContact(data));
+    dispatch(setOpenForm(false));
+  };
+
+  return createElement(FormComponent, {
+    onSubmit,
+    onDelete,
+    onEdit,
+    editMode,
+  });
 };

@@ -1,130 +1,19 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { ListCardComponent } from "./list-card/list-card.component";
+import { FormValues } from "../form/form.component";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store";
+import { setOpenForm } from "../contacts/contactSlice";
 
-const data = [
-  {
-    first_name: "Daria",
-    last_name: "Platonova",
-    email: "lala@gmailc.om",
-    country: "Russia",
-  },
+interface ListComponentProps {
+  contacts: FormValues[];
+}
+export const ListComponent = (props: ListComponentProps) => {
+  const { contacts } = props;
+  const dispatch = useDispatch();
 
-  {
-    first_name: "Dargia",
-    last_name: "Platognova",
-    email: "lala@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Plgatognova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-
-  {
-    first_name: "Dgargia",
-    last_name: "Platonova",
-    email: "lagla@gmagilc.om",
-    country: "Serbia",
-  },
-];
-
-export const ListComponent = () => {
-  return (
-    <div className="bg-white rounded-lg shadow-sm w-full h-4/5 m-4 overflow-hidden">
+  return contacts.length >= 1 ? (
+    <div className="bg-white rounded-lg shadow-sm w-full h-min m-4 overflow-hidden">
       <div className="px-4 py-1 flex justify-between bg-slate-200 ">
         <div className="w-1/4 text-sky-700 font-semibold mb-1">First name</div>
         <div className="w-1/4 text-sky-700 font-semibold mb-1">Last name</div>
@@ -134,7 +23,7 @@ export const ListComponent = () => {
         </div>
       </div>
       <div className="flex flex-col divide-y divide-dotted h-full overflow-y-auto">
-        {data.map((contact, index) => {
+        {contacts.map((contact, index) => {
           return (
             <ListCardComponent
               key={index}
@@ -146,6 +35,19 @@ export const ListComponent = () => {
           );
         })}
       </div>
+    </div>
+  ) : (
+    <div className="w-3/5 flex flex-col justify-center items-center">
+      <div className="text-center mb-4">
+        Oops, there are no contacts in your list! You can add your first contact
+        in our form:
+      </div>
+      <button
+        onClick={() => dispatch(setOpenForm(true))}
+        className="bg-sky-500 hover:bg-sky-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
+      >
+        Add contact
+      </button>
     </div>
   );
 };
