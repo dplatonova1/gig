@@ -27,6 +27,7 @@ export const ListComponent = (props: ListComponentProps) => {
           return (
             <ListCardComponent
               key={index}
+              id={contact.id}
               name={contact.first_name}
               last_name={contact.last_name}
               email={contact.email}
@@ -39,8 +40,8 @@ export const ListComponent = (props: ListComponentProps) => {
   ) : (
     <div className="w-3/5 flex flex-col justify-center items-center">
       <div className="text-center mb-4">
-        Oops, there are no contacts in your list! You can add your first contact
-        in our form:
+        Oops, there are no contacts in your list yet! &#128522;<br></br> You can
+        add your first contact in our form here:
       </div>
       <button
         onClick={() => dispatch(setOpenForm(true))}

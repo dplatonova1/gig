@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import { FormValues } from "../form/form.component";
+import { redirect } from "react-router-dom";
 
 export interface ContactState {
   contacts: FormValues[];
@@ -17,15 +17,12 @@ export const contactsSlice = createSlice({
   initialState,
   reducers: {
     addContact: (state, action) => {
-      console.log(action.payload);
       state.contacts.push(action.payload);
     },
     deleteContact: (state, action) => {
-      console.log(action.payload);
       state.contacts.filter((el) => el.id === action.payload.id);
     },
     editContact: (state, action) => {
-      console.log(action.payload);
       let itemtopatch = state.contacts.findIndex(
         (el) => el.id === action.payload.id
       );

@@ -5,11 +5,12 @@ import { Input } from "../input/input.component";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setOpenForm } from "../contacts/contactSlice";
 import { useDispatch } from "react-redux";
+import { redirect } from "react-router-dom";
 
 export type Field = "first_name" | "last_name" | "email" | "country";
 
 export interface FormValues {
-  id: number;
+  id: string;
   first_name: string;
   last_name: string;
   email: string;
@@ -21,10 +22,11 @@ export interface FormProps {
   onSubmit: SubmitHandler<FormValues>;
   onDelete: (data: FormValues) => void;
   onEdit: (data: FormValues) => void;
+  contact?: FormValues | undefined;
 }
 
 export const FormComponent = (props: FormProps) => {
-  const { onSubmit, editMode, onDelete, onEdit } = props;
+  const { onSubmit, editMode, onDelete, onEdit, contact } = props;
   const dispatch = useDispatch();
   const {
     register,
@@ -32,11 +34,11 @@ export const FormComponent = (props: FormProps) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      id: 0,
-      first_name: "",
-      last_name: "",
-      email: "",
-      country: "",
+      id: contact ? contact.id : "",
+      first_name: contact ? contact.first_name : "",
+      last_name: contact ? contact.last_name : "",
+      email: contact ? contact.email : "",
+      country: contact ? contact.country : "",
     },
   });
 
@@ -48,20 +50,18 @@ export const FormComponent = (props: FormProps) => {
   }, []);
 
   const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
-    // onDelete(e.target);
-    console.log(e.currentTarget);
+    contact && onDelete(contact);
   };
 
   const handleEdit = (e: MouseEvent<HTMLButtonElement>) => {
-    // onDelete(e.target);
-    console.log(e.currentTarget);
+    contact && onEdit(contact);
   };
 
   return (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="container z-10 relative mx-auto p-4 w-3/6 bg-white rounded-lg shadow-sm"
+        className="container z-10 absolute mx-auto p-4 w-3/6 bg-white rounded-lg shadow-sm"
       >
         <button
           onClick={() => dispatch(setOpenForm(false))}
@@ -114,12 +114,14 @@ export const FormComponent = (props: FormProps) => {
         {editMode ? (
           <div className="flex w-full justify-between">
             <button
+              type="button"
               onClick={handleEdit}
               className="bg-sky-500 hover:bg-sky-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
             >
               Edit
             </button>
             <button
+              type="button"
               onClick={handleDelete}
               className="bg-red-500 hover:bg-red-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
             >

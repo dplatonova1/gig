@@ -6,11 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setOpenForm } from "./contacts/contactSlice";
 
 function App() {
+  const dispatch = useDispatch();
   const contacts = useSelector((state: RootState) => state.contacts.contacts);
   const isOpen = useSelector((state: RootState) => state.contacts.isFormOpen);
-  const dispatch = useDispatch();
+
+  console.log(contacts);
   return (
-    <div className="bg-slate-100 w-screen h-screen p-6 flex flex-col justify-center items-center">
+    <div className="bg-slate-100 relative w-screen h-screen p-6 flex flex-col justify-center items-center">
       <div className="flex w-full justify-end">
         <h1 className="text-sky-700 m-auto font-bold text-5xl mb-8 mt-4">
           Your contact list
