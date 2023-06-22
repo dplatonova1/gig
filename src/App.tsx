@@ -14,8 +14,8 @@ function App() {
             element={<FormContainer editMode={true} />}
           />
           <Route path="/modal" element={<FormContainer editMode={false} />} />
-          <Route path="*" element={<ErrorPageComponent />} />
         </Route>
+        <Route path="*" element={<ErrorPageComponent />} />
       </Routes>
     </div>
   );

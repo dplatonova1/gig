@@ -9,7 +9,7 @@ interface ListComponentProps {
 export const ListComponent = (props: ListComponentProps) => {
   const { contacts } = props;
 
-  return contacts.length >= 1 ? (
+  return contacts.length ? (
     <div className="bg-white rounded-lg shadow-sm w-full h-min m-4 overflow-hidden">
       <div className="px-4 py-1 flex justify-between bg-slate-200 ">
         <div className="w-1/4 text-sky-700 font-semibold mb-1">First name</div>
