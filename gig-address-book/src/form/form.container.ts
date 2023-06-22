@@ -1,4 +1,4 @@
-import React, { createElement, useState, useMemo, useCallback } from "react";
+import React, { createElement, useMemo, useCallback } from "react";
 import { FormComponent, FormValues } from "./form.component";
 import { SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +39,7 @@ export const FormContainer = (props: FormContainerProps) => {
     navigate(-1);
   }, []);
 
-  const onEdit = useCallback((data: FormValues) => {
+  const onEdit: SubmitHandler<FormValues> = useCallback((data) => {
     dispatch(editContact(data));
     navigate(-1);
   }, []);
@@ -49,9 +49,8 @@ export const FormContainer = (props: FormContainerProps) => {
   }, []);
 
   return createElement(FormComponent, {
-    onSubmit,
+    onSubmit: editMode === false ? onSubmit : onEdit,
     onDelete,
-    onEdit,
     editMode,
     contact,
     onClose,

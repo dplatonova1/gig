@@ -1,4 +1,4 @@
-import React, { useMemo, MouseEvent, useState } from "react";
+import React, { MouseEvent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Input } from "../input/input.component";
@@ -18,22 +18,13 @@ export interface FormProps {
   editMode: boolean;
   onSubmit: SubmitHandler<FormValues>;
   onDelete: (data: FormValues) => void;
-  onEdit: (data: FormValues) => void;
   contact?: FormValues | undefined;
   onClose: () => void;
   countryList: string[];
 }
 
 export const FormComponent = (props: FormProps) => {
-  const {
-    onSubmit,
-    editMode,
-    onDelete,
-    onEdit,
-    contact,
-    onClose,
-    countryList,
-  } = props;
+  const { onSubmit, editMode, onDelete, contact, onClose, countryList } = props;
 
   const {
     register,
@@ -54,10 +45,6 @@ export const FormComponent = (props: FormProps) => {
 
   const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
     contact && onDelete(contact);
-  };
-
-  const handleEdit = (e: MouseEvent<HTMLButtonElement>) => {
-    contact && onEdit(contact);
   };
 
   return (
@@ -118,8 +105,7 @@ export const FormComponent = (props: FormProps) => {
         {editMode ? (
           <div className="flex w-full justify-between">
             <button
-              type="button"
-              onClick={handleEdit}
+              type="submit"
               className="bg-sky-500 hover:bg-sky-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
             >
               Edit

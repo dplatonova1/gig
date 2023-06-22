@@ -1,5 +1,5 @@
 import React from "react";
-import { UseFormRegister, Validate } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 import { Field, FormValues } from "../form/form.component";
 
 interface LabelProps {

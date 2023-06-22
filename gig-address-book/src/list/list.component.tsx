@@ -1,7 +1,6 @@
-import React, { useMemo, useCallback } from "react";
+import React from "react";
 import { ListCardComponent } from "./list-card/list-card.component";
 import { FormValues } from "../form/form.component";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 interface ListComponentProps {

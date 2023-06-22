@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { FormValues } from "../form/form.component";
-import { redirect } from "react-router-dom";
 
 export interface ContactState {
   contacts: FormValues[];
@@ -18,16 +17,18 @@ export const contactsSlice = createSlice({
       state.contacts.push(action.payload);
     },
     deleteContact: (state, action) => {
-      state.contacts.filter((el) => el.id === action.payload.id);
+      let index = state.contacts.findIndex(
+        (contact) => contact.id === action.payload.id
+      );
+      if (index > -1) {
+        state.contacts.splice(index, 1);
+      }
     },
     editContact: (state, action) => {
-      let itemtopatch = state.contacts.findIndex(
-        (el) => el.id === action.payload.id
+      let contactToPatch = state.contacts.find(
+        (contact) => contact.id === action.payload.id
       );
-      state.contacts
-        .slice(0, itemtopatch)
-        .concat(action.payload)
-        .concat(state.contacts.slice(itemtopatch + 1));
+      contactToPatch && Object.assign(contactToPatch, action.payload);
     },
   },
 });
