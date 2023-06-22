@@ -9,12 +9,12 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<HomePageComponent />}>
-          <Route path="/modal" element={<FormContainer editMode={false} />} />
-          <Route path="*" element={<ErrorPageComponent />} />
           <Route
-            path="/:contactId"
+            path="/contacts/:contactId"
             element={<FormContainer editMode={true} />}
           />
+          <Route path="/modal" element={<FormContainer editMode={false} />} />
+          <Route path="*" element={<ErrorPageComponent />} />
         </Route>
       </Routes>
     </div>

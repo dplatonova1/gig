@@ -12,7 +12,7 @@ export interface ListCardComponentProps {
 export const ListCardComponent = (props: ListCardComponentProps) => {
   const { name, last_name, email, country, id } = props;
   return (
-    <Link to={`/${id}`} className="px-4 py-1 flex justify-between">
+    <Link to={`/contacts/${id}`} className="px-4 py-1 flex justify-between">
       <div className="w-1/4">{name}</div>
       <div className="w-1/4">{last_name}</div>
       <div className="w-1/4">{email}</div>
