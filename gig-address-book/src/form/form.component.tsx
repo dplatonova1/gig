@@ -1,11 +1,8 @@
 import React, { useMemo, MouseEvent, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import countries from "countries-list";
+
 import { Input } from "../input/input.component";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { setOpenForm } from "../contacts/contactSlice";
-import { useDispatch } from "react-redux";
-import { redirect } from "react-router-dom";
 
 export type Field = "first_name" | "last_name" | "email" | "country";
 
@@ -23,11 +20,21 @@ export interface FormProps {
   onDelete: (data: FormValues) => void;
   onEdit: (data: FormValues) => void;
   contact?: FormValues | undefined;
+  onClose: () => void;
+  countryList: string[];
 }
 
 export const FormComponent = (props: FormProps) => {
-  const { onSubmit, editMode, onDelete, onEdit, contact } = props;
-  const dispatch = useDispatch();
+  const {
+    onSubmit,
+    editMode,
+    onDelete,
+    onEdit,
+    contact,
+    onClose,
+    countryList,
+  } = props;
+
   const {
     register,
     handleSubmit,
@@ -45,10 +52,6 @@ export const FormComponent = (props: FormProps) => {
   const validationPattern =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  const countryList = useMemo(() => {
-    return Object.values(countries.countries).map((country) => country.name);
-  }, []);
-
   const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
     contact && onDelete(contact);
   };
@@ -64,7 +67,8 @@ export const FormComponent = (props: FormProps) => {
         className="container z-10 absolute mx-auto p-4 w-3/6 bg-white rounded-lg shadow-sm"
       >
         <button
-          onClick={() => dispatch(setOpenForm(false))}
+          type="button"
+          onClick={onClose}
           className="absolute right-3 top-2 hover:bg-slate-200 rounded-lg p-1"
         >
           <XMarkIcon className="h-6 w-6 text-sky-700" />
@@ -138,7 +142,7 @@ export const FormComponent = (props: FormProps) => {
         )}
       </form>
       <div
-        onClick={() => dispatch(setOpenForm(false))}
+        onClick={onClose}
         className="absolute inset-y-0 opacity-50 w-full h-full bg-black z-0"
       ></div>
     </>

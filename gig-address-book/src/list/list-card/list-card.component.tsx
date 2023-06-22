@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export interface ListCardComponentProps {
   name: string;
@@ -16,7 +16,7 @@ export const ListCardComponent = (props: ListCardComponentProps) => {
       <div className="w-1/4">{name}</div>
       <div className="w-1/4">{last_name}</div>
       <div className="w-1/4">{email}</div>
-      <div className="w-1/4 text-center"> {country}</div>
+      <div className="w-1/4 text-center">{country}</div>
     </Link>
   );
 };

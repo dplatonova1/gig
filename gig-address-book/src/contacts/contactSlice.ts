@@ -4,12 +4,10 @@ import { redirect } from "react-router-dom";
 
 export interface ContactState {
   contacts: FormValues[];
-  isFormOpen: boolean;
 }
 
 const initialState: ContactState = {
   contacts: [],
-  isFormOpen: false,
 };
 
 export const contactsSlice = createSlice({
@@ -31,13 +29,9 @@ export const contactsSlice = createSlice({
         .concat(action.payload)
         .concat(state.contacts.slice(itemtopatch + 1));
     },
-    setOpenForm: (state, action) => {
-      state.isFormOpen = action.payload;
-    },
   },
 });
 
-export const { addContact, deleteContact, editContact, setOpenForm } =
-  contactsSlice.actions;
+export const { addContact, deleteContact, editContact } = contactsSlice.actions;
 
 export default contactsSlice.reducer;

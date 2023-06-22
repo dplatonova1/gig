@@ -1,16 +1,14 @@
 import React, { useMemo, useCallback } from "react";
 import { ListCardComponent } from "./list-card/list-card.component";
 import { FormValues } from "../form/form.component";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../store";
-import { setOpenForm } from "../contacts/contactSlice";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 interface ListComponentProps {
   contacts: FormValues[];
 }
 export const ListComponent = (props: ListComponentProps) => {
   const { contacts } = props;
-  const dispatch = useDispatch();
 
   return contacts.length >= 1 ? (
     <div className="bg-white rounded-lg shadow-sm w-full h-min m-4 overflow-hidden">
@@ -43,12 +41,12 @@ export const ListComponent = (props: ListComponentProps) => {
         Oops, there are no contacts in your list yet! &#128522;<br></br> You can
         add your first contact in our form here:
       </div>
-      <button
-        onClick={() => dispatch(setOpenForm(true))}
-        className="bg-sky-500 hover:bg-sky-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
+      <Link
+        to="/modal"
+        className="self-center bg-sky-500 hover:bg-sky-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
       >
         Add contact
-      </button>
+      </Link>
     </div>
   );
 };
