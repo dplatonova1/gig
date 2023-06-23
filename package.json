@@ -1,8 +1,6 @@
 {
   "name": "gig-address-book",
   "version": "0.1.0",
-  "homepage": "https://dplatonova1.github.io/gig/",
-  "private": true,
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^1.9.5",

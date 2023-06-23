@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Input } from "../input/input.component";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { redirect } from "react-router-dom";
 
 export type Field = "first_name" | "last_name" | "email" | "country";
 
@@ -25,7 +26,6 @@ export interface FormProps {
 
 export const FormComponent = (props: FormProps) => {
   const { onSubmit, editMode, onDelete, contact, onClose, countryList } = props;
-
   const {
     register,
     handleSubmit,
