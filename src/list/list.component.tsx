@@ -41,7 +41,7 @@ export const ListComponent = (props: ListComponentProps) => {
         add your first contact in our form here:
       </div>
       <Link
-        to="/modal"
+        to="/gig/modal"
         className="self-center bg-sky-500 hover:bg-sky-700 rounded-lg cursor-pointer text-white hover:text-slate-100 px-4 py-2"
       >
         Add contact

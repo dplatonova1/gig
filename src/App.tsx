@@ -8,12 +8,15 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePageComponent />}>
+        <Route path="/gig" element={<HomePageComponent />}>
           <Route
-            path="/contacts/:contactId"
+            path="/gig/contacts/:contactId"
             element={<FormContainer editMode={true} />}
           />
-          <Route path="/modal" element={<FormContainer editMode={false} />} />
+          <Route
+            path="/gig/modal"
+            element={<FormContainer editMode={false} />}
+          />
         </Route>
         <Route path="/404" element={<ErrorPageComponent />} />
         <Route path="*" element={<ErrorPageComponent />} />
